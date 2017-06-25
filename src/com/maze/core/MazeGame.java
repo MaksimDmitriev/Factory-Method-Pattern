@@ -9,7 +9,14 @@ public class MazeGame {
     } */
 
     public Maze createMaze() {
-        Maze maze = new Maze();
+        Maze maze = new Maze(7, 3);
+        maze.addWall(Direction.EAST);
+        maze.addWall(Direction.NORTH);
+        maze.addWall(Direction.NORTH);
+        maze.addWall(Direction.EAST);
+        maze.addWall(Direction.EAST);
+        maze.addWall(Direction.EAST);
+
         return maze;
     }
 
