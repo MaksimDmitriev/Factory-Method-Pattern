@@ -7,6 +7,8 @@ import java.util.List;
 
 final class Maze {
 
+    // TODO: how to add MapSites when their indices are less than zero? w=5, h=3. My init index is 7.
+    // When I call addRoom(South), its index will be 2. If I call addRoom(South) again, its index is less than zero.
     private final List<MapSite> mData;
     private final int mWidth;
     private final int mHeight;
