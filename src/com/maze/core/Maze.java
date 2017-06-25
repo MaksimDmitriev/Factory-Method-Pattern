@@ -2,22 +2,24 @@ package com.maze.core;
 
 import com.sun.istack.internal.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 final class Maze {
 
-    private final MapSite[] mData;
+    private final List<MapSite> mData;
     private final int mWidth;
     private final int mHeight;
     private int mIndex;
 
-    Maze(int width, int height) {
-        mWidth = width;
-        mHeight = height;
-        mData = new MapSite[width * height];
-        mIndex = mData.length / 2;
-        mData[mIndex] = new Room();
+    Maze(int initialWidth, int initialHeight) {
+        mWidth = initialWidth;
+        mHeight = initialHeight;
+        mData = new ArrayList<>(initialWidth * initialHeight);
+        mIndex = mData.size() / 2;
+        mData.set(mIndex, new Room());
     }
 
-    // TODO: throw IllegalArgumentException vs return false when running off the maze
     void addRoom(@NotNull Direction direction) {
         addMapSite(direction, new Room());
     }
@@ -48,12 +50,31 @@ final class Maze {
         }
         checkIndex(result);
         mIndex = result;
-        mData[mIndex] = mapSite;
+        mData.set(mIndex, mapSite);
     }
 
-    private void checkIndex(int index) {
-        if (index < 0 || index >= mData.length) {
-            throw new ArrayIndexOutOfBoundsException();
+    private boolean checkIndex(int index) {
+        if (index < 0) {
+            return false;
+        } else {
+            return true;
         }
+    }
+
+    public int getX() {
+        return mIndex % mWidth;
+    }
+
+    public int getY() {
+        return mIndex / mWidth;
+    }
+
+    public MapSite getMapSite(int x, int y) {
+        int index = x + y * mWidth;
+        return mData.get(index);
+    }
+
+    public MapSite getCurrentMapSite() {
+        return mData.get(mIndex);
     }
 }
